@@ -1,0 +1,41 @@
+<section *ngIf="customer.name; else dataLoading">
+    <h2>Customer Details</h2>
+
+    <!-- Prediction -->
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>{{ customer.name }}</mat-card-title>
+
+            <mat-card-subtitle>
+                Birthday: {{ customer.birthDate | date: 'd MMMM YYYY' }} ({{ customer.age }})
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <h3 *ngIf="doneLoadingOrders && customer.orders.length">
+                Last order date: {{ customer.orders[0].date | date: 'd MMMM YYYY' }}
+            </h3>
+        </mat-card-content>
+
+        <mat-card-footer>
+            <section *ngIf="predictionErrorMessage; else predictions">
+                <p>{{ predictionErrorMessage }}</p>
+            </section>
+
+            <ng-template #predictions>
+                <h3 *ngIf="doneLoadingPrediction; else predictionLoading">
+                    Next predicted order date: {{ customer.prediction | date: 'd MMMM YYYY' }}
+                </h3>
+            </ng-template>
+
+            <ng-template #predictionLoading>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </ng-template>
+        </mat-card-footer>
+    </mat-card>
+</section>
+
+<!-- Loading || No data -->
+<ng-template #dataLoading>
+    <mat-spinner></mat-spinner>
+</ng-template>
