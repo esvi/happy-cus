@@ -65,7 +65,7 @@ export class CustomersService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage: string = 'Something bad happened; Please try again later.';
+    let errorMessage: string = 'Something went wrong. Please try again later.';
 
     if (error.status === 0) {
       // Handle client-side or network errors

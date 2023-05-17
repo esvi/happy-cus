@@ -2,15 +2,15 @@
   <nav>
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <span>{{ title }}</span>
-      </mat-toolbar-row>
-
-      <mat-toolbar-row>
-        <button routerLink="/home">Customers</button>
-        <button routerLink="/form">Predictions</button>
+        <mat-icon>store</mat-icon>
+        
+        <a mat-button routerLink="/home">Customers</a>
+        <a mat-button routerLink="/form">Predictions</a>
       </mat-toolbar-row>
     </mat-toolbar>
   </nav>
 
-  <router-outlet></router-outlet>
+  <section class="content__page">
+    <router-outlet></router-outlet>
+  </section>
 </div>

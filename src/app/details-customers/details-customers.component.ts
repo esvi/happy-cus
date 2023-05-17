@@ -35,26 +35,20 @@ export class DetailsCustomersComponent implements AfterViewInit {
       // Data
       this.orders = data;
 
-      console.log('orders:', this.orders);
-
+      // Customer
       this.customer.orders = this.sortOrders(data);
       this.customer.age = this.convertDateToYears(this.customer.birthDate);
 
       // Show predictions
       this.doneLoadingOrders = true;
 
-      // Fetch predictions
-      console.log(this.customer);
-      
+      // Fetch prediction only if there are orders to work with
       if (this.customer.orders.length) this.getPrediction(this.customer.age, this.customer.orders[0]);
-
-      console.log('customer:', this.customer);
     });
   }
 
   getPrediction(age: number, order: any) {
     // Format given date
-    console.log(order);
     const lastOrderDate = moment(order.date).format('YYYY-MM-DD');
 
     // Get next order predictions
@@ -66,9 +60,7 @@ export class DetailsCustomersComponent implements AfterViewInit {
         this.customer.prediction = data.predictedNextOrderDate;
       },
       error: (error: any) => {
-        // Throw error
-        console.log('error', error);
-
+        // Show error
         this.predictionErrorMessage = error;
       },
       complete: () => {
@@ -80,10 +72,12 @@ export class DetailsCustomersComponent implements AfterViewInit {
     });
   }
 
+  // Sort orders by date
   sortOrders(orders: any) {
     return orders.sort((a: any, b: any) => moment(b.date).valueOf() - moment(a.date).valueOf());
   }
 
+  // Convert birthDate to age
   convertDateToYears(value: string) {
     return this.dateToYearsPipe.transform(value);
   }

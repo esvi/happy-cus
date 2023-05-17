@@ -1,0 +1,12 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+.content {
+    &__page {
+        margin: 1rem auto;
+        padding: 1rem;
+        width: 100%;
+        max-width: 75rem;
+    }
+}

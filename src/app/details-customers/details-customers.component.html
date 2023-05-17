@@ -1,9 +1,9 @@
-<section *ngIf="customer.name; else dataLoading">
+<section class="details-customer" *ngIf="customer.name; else dataLoading">
     <h2>Customer Details</h2>
 
     <!-- Prediction -->
-    <mat-card class="example-card">
-        <mat-card-header>
+    <mat-card>
+        <mat-card-header class="details-customer__header">
             <mat-card-title>{{ customer.name }}</mat-card-title>
 
             <mat-card-subtitle>
@@ -11,23 +11,25 @@
             </mat-card-subtitle>
         </mat-card-header>
 
-        <mat-card-content>
-            <h3 *ngIf="doneLoadingOrders && customer.orders.length">
+        <mat-card-content class="details-customer__order">
+            <!-- Last order -->
+            <p *ngIf="doneLoadingOrders && customer.orders.length">
                 Last order date: {{ customer.orders[0].date | date: 'd MMMM YYYY' }}
-            </h3>
+            </p>
         </mat-card-content>
 
         <mat-card-footer>
-            <section *ngIf="predictionErrorMessage; else predictions">
-                <p>{{ predictionErrorMessage }}</p>
-            </section>
+            <!-- Error -->
+            <h3 *ngIf="predictionErrorMessage; else results">{{ predictionErrorMessage }}</h3>
 
-            <ng-template #predictions>
+            <!-- Results -->
+            <ng-template #results>
                 <h3 *ngIf="doneLoadingPrediction; else predictionLoading">
                     Next predicted order date: {{ customer.prediction | date: 'd MMMM YYYY' }}
                 </h3>
             </ng-template>
 
+            <!-- Progress bar -->
             <ng-template #predictionLoading>
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </ng-template>
@@ -35,7 +37,7 @@
     </mat-card>
 </section>
 
-<!-- Loading || No data -->
+<!-- Spinner -->
 <ng-template #dataLoading>
     <mat-spinner></mat-spinner>
 </ng-template>
