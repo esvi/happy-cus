@@ -1,0 +1,55 @@
+<section class="form-predictions">
+    <h2>Predictions</h2>
+
+    <!-- Age & Date -->
+    <section class="form-predictions__form">
+        <mat-form-field>
+            <mat-label>Age</mat-label>
+
+            <input type="number" matInput  [formControl]="ageFormControl">
+
+            <mat-hint>{{ hintAge }}</mat-hint>
+
+            <mat-error *ngIf="ageFormControl.hasError('min') || ageFormControl.hasError('max')">
+                {{ invalidAge }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Last Order Date</mat-label>
+
+            <input matInput [matDatepicker]="lastOrderDatepicker" [max]="today" [formControl]="dateFormControl">
+
+            <mat-hint>YYYY-MM-DD</mat-hint>
+
+            <mat-datepicker-toggle matIconSuffix [for]="lastOrderDatepicker"></mat-datepicker-toggle>
+
+            <mat-datepicker #lastOrderDatepicker></mat-datepicker>
+        </mat-form-field>
+    </section>
+
+    <!-- Submit -->
+    <section class="form-predictions__button">
+        <button mat-flat-button color="primary" (click)="getPrediction()" [disabled]="formHasErrors">Submit</button>
+    </section>
+
+    <!-- Prediction -->
+    <section *ngIf="showPrediction" class="form-predictions__results">
+        <!-- Error -->
+        <section *ngIf="predictionErrorMessage; else results">
+            <h3>{{ predictionErrorMessage }}</h3>
+        </section>
+
+        <!-- Result -->
+        <ng-template #results>
+            <h3 *ngIf="doneLoadingPrediction; else predictionLoading">
+                Next predicted order date: {{ prediction | date: 'd MMMM YYYY' }}
+            </h3>
+        </ng-template>
+
+        <!-- Spinner -->
+        <ng-template #predictionLoading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    </section>
+</section>

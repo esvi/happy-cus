@@ -1,0 +1,21 @@
+.form-predictions {
+    section {
+        margin: 0 0 1rem;
+        padding: 0 0 1rem;
+    }
+
+    &__form {
+        display: flex;
+        align-items: flex-start;
+
+        mat-form-field + mat-form-field {
+            margin-left: 0.5rem;
+        }
+    }
+
+    &__results {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
